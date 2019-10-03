@@ -18,7 +18,15 @@
     "EventHub",
     "SendEvents"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clovityinc/node-red-contrib-azure-event-hub-send-message.git"
+  },
   "author": "Clovity Inc",
+  "bugs": {
+    "url": "https://github.com/clovityinc/node-red-contrib-azure-event-hub-send-message/issues"
+  },
+  "homepage": "https://github.com/clovityinc/node-red-contrib-azure-event-hub-send-message/blob/master/README.md",
   "license": "MIT",
   "dependencies": {
     "@azure/event-hubs": "^2.1.1",
