@@ -1,0 +1,38 @@
+<script type="text/javascript">
+    RED.nodes.registerType('clovitySendAzureEventHubMessages',{
+        category: 'cloud',
+        color: '#70be7d',
+        defaults: {
+            name: {value:"Clovity - Send - Azure Event Hub"}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "file.png",
+        label: function() {
+            return this.name||"Clovity - Send - Azure Event Hub";            
+        },
+        credentials: {
+            connectionString: {type:"text"},
+            eventHubPath: { type: "text"}
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="clovitySendAzureEventHubMessages">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name"> <br/>
+    </div>
+    <div class="form-row">
+        <label for="node-input-connectionString"><i class="icon-tag"></i> Connection String</label>
+        <input type="text" id="node-input-connectionString" placeholder="Connection String"> <br/>
+    </div>
+    <div class="form-row">
+        <label for="node-input-eventHubPath"><i class="icon-tag"></i> Event Hub path</label>
+        <input type="text" id="node-input-eventHubPath" placeholder="Event Hub path"> <br/>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="clovitySendAzureEventHubMessages">
+    <p>A simple node that sends the message payloads to Azure Event Hub</p>
+</script>
