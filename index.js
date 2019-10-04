@@ -12,8 +12,9 @@ module.exports = function (RED) {
             node.log(this.name);
             node.log(this.credentials.connectionString);
             node.log(this.credentials.eventHubPath);
+            node.log(typeof msg.payload)
             node.log(JSON.stringify(msg.payload));
-            sendMessageToEventHub(node, this.credentials.connectionString, this.credentials.eventHubPath, JSON.stringify(msg.payload));
+            sendMessageToEventHub(node, this.credentials.connectionString, this.credentials.eventHubPath, typeof(msg.payload) == 'string' ? JSON.parse(msg.payload): msg.payload);
         });
     }
 
@@ -37,7 +38,7 @@ module.exports = function (RED) {
     var sendMessageToEventHub = function (node, connectionString, eventHubPath, message) { 
         const client = EventHubClient.createFromConnectionString(connectionString, eventHubPath);
         const eventData = {
-            body: `${message}`
+            body: message
         };
         client.send(eventData);
     };
