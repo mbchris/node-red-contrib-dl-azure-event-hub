@@ -1,6 +1,6 @@
 {
-  "name": "node-red-contrib-azure-event-hub-send-message",
-  "version": "1.0.1",
+  "name": "node-red-contrib-dl-azure-event-hub",
+  "version": "1.0.0,
   "description": "Send messages to the azure event hub",
   "main": "index.js",
   "scripts": {
@@ -20,13 +20,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/clovityinc/node-red-contrib-azure-event-hub-send-message.git"
+    "url": "git+https://github.com/digital-lion/node-red-contrib-dl-azure-event-hub.git"
   },
-  "author": "Clovity Inc",
+  "author": "Digital Lion",
   "bugs": {
-    "url": "https://github.com/clovityinc/node-red-contrib-azure-event-hub-send-message/issues"
+    "url": "https://github.com/digital-lion/node-red-contrib-dl-azure-event-hub/issues"
   },
-  "homepage": "https://github.com/clovityinc/node-red-contrib-azure-event-hub-send-message/blob/master/README.md",
+  "homepage": "https://github.com/digital-lion/node-red-contrib-dl-azure-event-hub/blob/master/README.md",
   "license": "MIT",
   "dependencies": {
     "@azure/event-hubs": "^2.1.1",
