@@ -1,11 +1,11 @@
-# node-red-contrib-azure-event-hub-send-message
-This custom node-red node is used to sen messages to the Azure Event Hub.
+# node-red-contrib-dl-azure-event-hub
+This custom node-red node is used to send messages to the Azure Event Hub.
 
 ## Input Parameters
 
 ### Name (Optional)
 The name parameter takes a string as input. The string would appear as the name of the node. 
-Default Value is: Clovity - Send - Azure Event Hub
+Default Value is: dlEventHubSend
 
 ### Connection String (Mandatory):
 The endpoint connection string which allows you to connect to the event hub.
@@ -15,11 +15,11 @@ Format: Endpoint=sb://XXXXXXXXX-prd.servicebus.windows.net/;SharedAccessKeyName=
 The name of the event hub where the messages have to be sent to.
 
 ## Screenshot
-![Clovity Azure Event Hub Node](https://github.com/clovityinc/node-red-contrib-azure-event-hub-send-message/blob/master/images/ClovitySendAzureEventHubMessage.png)
+
 
 ## Installation
 ```
-npm i node-red-contrib-azure-event-hub-send-message
+npm i node-red-contrib-dl-azure-event-hub
 ```
 
 ## Usage
