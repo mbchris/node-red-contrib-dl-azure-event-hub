@@ -1,15 +1,15 @@
 <script type="text/javascript">
-    RED.nodes.registerType('clovitySendAzureEventHubMessages',{
+    RED.nodes.registerType('dlEventHubSend',{
         category: 'cloud',
-        color: '#70be7d',
+        color: '#B8860B',
         defaults: {
-            name: {value:"Clovity - Send - Azure Event Hub"}
+            name: {value:"dlEventHubSend"}
         },
         inputs:1,
         outputs:1,
         icon: "./images/icon.png",
         label: function() {
-            return this.name||"Clovity - Send - Azure Event Hub";            
+            return this.name||"dlEventHubSend";            
         },
         credentials: {
             connectionString: {type:"text"},
@@ -18,7 +18,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="clovitySendAzureEventHubMessages">
+<script type="text/x-red" data-template-name="dlEventHubSend">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name"> <br/>
