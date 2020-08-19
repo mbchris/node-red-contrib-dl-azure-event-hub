@@ -20,7 +20,7 @@ Adress path of the eventHub to which the messages should be addressed.
 
 ## Installation
 ```
-npm i node-red-contrib-dl-azure-event-hub
+npm install --no-audit --no-update-notifier --save --save-prefix="~" --production node-red-contrib-dl-azure-event-hub
 ```
 
 ## Usage
