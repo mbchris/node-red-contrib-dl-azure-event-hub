@@ -29,7 +29,6 @@
   "homepage": "https://github.com/digital-lion/node-red-contrib-dl-azure-event-hub/blob/master/README.md",
   "license": "MIT",
   "dependencies": {
-    "@azure/event-hubs": "^2.1.1",
-    "bluebird": "^3.5.5"
+    "@azure/event-hubs": "^5.2.2"
   }
 }
