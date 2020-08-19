@@ -40,7 +40,7 @@ module.exports = function (RED) {
         const eventData = {
             body: message
         };
-        producerClient.sendBatch(eventData);
+        node.log("dlEventHubSend --> sendMessage --> sendBatch(): " + JSON.stringify(producerClient.sendBatch(eventData)));
         producerClient.close();
     };
 }
