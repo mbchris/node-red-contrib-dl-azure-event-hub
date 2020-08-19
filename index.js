@@ -8,7 +8,6 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
         var node = this;
         node.on('input', function (msg) {
-            var messageJSON = null;
             node.log(this.name);
             node.log(this.credentials.connectionString);
             node.log(this.credentials.eventHubPath);
