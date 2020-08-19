@@ -1,21 +1,24 @@
 # node-red-contrib-dl-azure-event-hub
+This node can be used to send messages from node-RED to the Azure EventHub. 
+It is based on https://github.com/clovityinc/node-red-contrib-azure-event-hub-send-message therefore the documentation can be found there.
+
+
 This custom node-red node is used to send messages to the Azure Event Hub.
 
 ## Input Parameters
 
 ### Name (Optional)
-The name parameter takes a string as input. The string would appear as the name of the node. 
-Default Value is: dlEventHubSend
+Rename your node
 
 ### Connection String (Mandatory):
-The endpoint connection string which allows you to connect to the event hub.
-Format: Endpoint=sb://XXXXXXXXX-prd.servicebus.windows.net/;SharedAccessKeyName=XXXX;SharedAccessKey=XXXXX
+Get the connection string from your eventHub instance after setting up the security rules.
+Endpoint=sb://????????.servicebus.windows.net/;SharedAccessKey=????????;EntityPath=????????
 
 ### Event Hub path (Mandatory):
-The name of the event hub where the messages have to be sent to.
+Adress path of the eventHub to which the messages should be addressed.
 
 ## Screenshot
-
+coming soon...
 
 ## Installation
 ```
@@ -23,16 +26,7 @@ npm i node-red-contrib-dl-azure-event-hub
 ```
 
 ## Usage
-1. Copy the below JSON
+1. Example JSON here
 ```JSON
-[{"id":"864e40f6.22f76","type":"tab","label":"Azure Event Hub Send Message","disabled":false,"info":""},{"id":"22085b05.857334","type":"inject","z":"864e40f6.22f76","name":"Send Payload","topic":"","payload":"{\"data\": \"{temperature: 95, wind: 10}\" }","payloadType":"json","repeat":"","crontab":"","once":false,"onceDelay":"","x":190,"y":300,"wires":[["27a034a5.375acc"]]},{"id":"3110b8b3.46b708","type":"debug","z":"864e40f6.22f76","name":"","active":true,"console":"false","complete":"true","x":802.000054359436,"y":299.9299564361572,"wires":[]},{"id":"27a034a5.375acc","type":"clovitySendAzureEventHubMessages","z":"864e40f6.22f76","name":"Clovity - Send - Azure Event Hub","x":520,"y":320,"wires":[["3110b8b3.46b708"]]}]
+[{"id":"fd10864e.6503c8","type":"tab","label":"EventHub Example","disabled":false,"info":""},{"id":"9f719c.4f639e68","type":"inject","z":"fd10864e.6503c8","name":"","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":350,"y":280,"wires":[["7604c298.e6856c"]]},{"id":"7604c298.e6856c","type":"function","z":"fd10864e.6503c8","name":"set telemetry data","func":"let tem = 20;   //°C \nlet pre = 1013; //hPa\nlet en = 3120;  //Wh\n\n// Everything inside the 'payload' field will be transfered to the eventHub\nmsg.payload = {\n    'data' : {\n        'temperature' : tem,\n        'pressure': pre,\n        'energy': en\n    }\n};\nreturn msg;","outputs":1,"noerr":0,"x":580,"y":280,"wires":[["54dc0045.3a342"]]},{"id":"54dc0045.3a342","type":"dlEventHubSend","z":"fd10864e.6503c8","name":"dlEventHubSend","x":820,"y":280,"wires":[[]]},{"id":"ed848e5c.968d1","type":"comment","z":"fd10864e.6503c8","name":"1. enter here your ConnectionString","info":"","x":870,"y":210,"wires":[]},{"id":"29765d3.f21a5a2","type":"comment","z":"fd10864e.6503c8","name":"2. enter here your EventHub path","info":"","x":860,"y":240,"wires":[]}]
 ```
-
-2. Access the node-red UI using http://localhost:1880. Click on Import-->Clipboard and paste the copied json in the text area and Click Import.
-
-3. Update the Name, Connection String and Event Hub path parameters with the ones you wish to send messages to.
-
-
-
-
-
