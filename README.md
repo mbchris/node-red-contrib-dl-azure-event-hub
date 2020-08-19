@@ -1,6 +1,6 @@
 # node-red-contrib-dl-azure-event-hub
 This node can be used to send messages from node-RED to the Azure EventHub. 
-It is based on https://github.com/clovityinc/node-red-contrib-azure-event-hub-send-message therefore the documentation was extracted an modified from there.
+It is based on https://github.com/clovityinc/node-red-contrib-azure-event-hub-send-message therefore the documentation was extracted and modified from there.
 
 ## Input Parameters
 
