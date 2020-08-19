@@ -1,6 +1,6 @@
 module.exports = function (RED) {
     const {
-        EventHubClient
+        EventHubProducerClient
     } = require("@azure/event-hubs");
 
     function dlEventHubSend(config) {
@@ -35,11 +35,12 @@ module.exports = function (RED) {
     });
 
     var sendMessage = function (node, connectionString, eventHubPath, message) { 
-        const client = EventHubClient.createFromConnectionString(connectionString, eventHubPath);
+        const producerClient = new EventHubProducerClient(connectionString, eventHubPath);
+
         const eventData = {
             body: message
         };
-        client.send(eventData);
-        client.close();
+        producerClient.sendBatch(eventData);
+        producerClient.close();
     };
 }
