@@ -15,7 +15,7 @@ Endpoint=sb://????????.servicebus.windows.net/;SharedAccessKey=????????;EntityPa
 Adress path of the eventHub to which the messages should be addressed.
 
 ## Screenshot
-coming soon...
+![Alt text](/images/dlEventHubSend.JPG?raw=true "Example flow")
 
 ## Installation
 ```
