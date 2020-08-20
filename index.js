@@ -34,13 +34,24 @@ module.exports = function (RED) {
         }
     });
 
-    var sendMessage = function (node, connectionString, eventHubPath, message) { 
+    var sendMessage =  async function (node, connectionString, eventHubPath, message) { 
+        
+        const batchOptions = { /*e.g. batch size*/ };
         const producerClient = new EventHubProducerClient(connectionString, eventHubPath);
 
-        const eventData = {
-            body: message
-        };
-        node.log("dlEventHubSend --> sendMessage --> sendBatch(): " + JSON.stringify(producerClient.sendBatch(eventData)));
-        producerClient.close();
+        //create new batch with options
+        var batch = await producerClient.createBatch(batchOptions);
+
+        //try to add an event to the batch
+        const isAdded = batch.tryAdd({ body: message });
+
+        if( isAdded === false ) {
+            node.warn("Failed to add event to the batch. Possible information loss.");
+        }
+        //send batch
+        await producerClient.sendBatch(batch);
+
+        //close connection
+        await producerClient.close();
     };
 }
