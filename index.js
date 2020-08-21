@@ -1,4 +1,6 @@
 module.exports = function (RED) {
+    "use strict";
+
     const {
         EventHubProducerClient
     } = require("@azure/event-hubs");
@@ -8,11 +10,6 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
         var node = this;
         node.on('input', function (msg) {
-            node.log(this.name);
-            node.log(this.credentials.connectionString);
-            node.log(this.credentials.eventHubPath);
-            node.log(typeof msg.payload)
-            node.log(JSON.stringify(msg.payload));
             sendMessage(node, this.credentials.connectionString, this.credentials.eventHubPath, typeof(msg.payload) == 'string' ? JSON.parse(msg.payload): msg.payload);
         });
     }
@@ -33,25 +30,84 @@ module.exports = function (RED) {
             }
         }
     });
-
-    var sendMessage =  async function (node, connectionString, eventHubPath, message) { 
+    
+    /*
+    * sends the events in shape of batchs to the event hub
+    */
+    async function sendMessage(node, connectionString, eventHubPath, message) { 
         
-        const batchOptions = { /*e.g. batch size*/ };
-        const producerClient = new EventHubProducerClient(connectionString, eventHubPath);
+        try {
+            const batchOptions = { /*e.g. batch size*/ };
+            const producerClient = new EventHubProducerClient(connectionString, eventHubPath);
 
-        //create new batch with options
-        var batch = await producerClient.createBatch(batchOptions);
+            //create new batch with options
+            var batch = await producerClient.createBatch(batchOptions);
 
-        //try to add an event to the batch
-        const isAdded = batch.tryAdd({ body: message });
+            //try to add an event to the batch
+            const isAdded = batch.tryAdd({ body: message });
 
-        if( isAdded === false ) {
-            node.warn("Failed to add event to the batch. Possible information loss.");
+            if( isAdded === false ) {
+                node.warn("Failed to add event to the batch. Possible information loss.");
+            }
+            //send batch
+            await producerClient.sendBatch(batch);
+        } catch (err) {
+            console.log("Error when creating & sending a batch of events: ", err);
+            setStatus("error", "communication failed");
         }
-        //send batch
-        await producerClient.sendBatch(batch);
-
         //close connection
         await producerClient.close();
     };
+
+    /*
+    * sets the node status
+    */
+    function setStatus(status, message) {
+        var obj;
+
+        switch (status) {
+            case 'connecting...':
+                obj = {
+                    fill: 'yellow',
+                    shape: 'dot',
+                    text: message
+                };
+                break;
+            case 'connected':
+                obj = {
+                    fill: 'green',
+                    shape: 'dot',
+                    text: message
+                };
+                break;
+            case 'disconnected':
+                obj = {
+                    fill: 'red',
+                    shape: 'dot',
+                    text: message
+                };
+                break;
+            case 'message sent':
+                obj = {
+                    fill: 'blue',
+                    shape: 'dot',
+                    text: message
+                };
+                break;
+            case 'error':
+                obj = {
+                    fill: 'red',
+                    shape: 'dot',
+                    text: message
+                };
+                break;
+            default:
+                obj = {
+                    fill: 'grey',
+                    shape: 'dot',
+                    text: message
+                };
+        }
+        return obj;
+    }
 }
