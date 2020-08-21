@@ -38,82 +38,55 @@ module.exports = function (RED) {
 
         const batchOptions = { /*e.g. batch size*/ };
         const producerClient = new EventHubProducerClient(connectionString, eventHubPath);
-        node.status(setStatus("open", "connecting..."));
+        node.log("connecting the producer client...");
+        node.status({
+            fill: 'yellow',
+            shape: 'dot',
+            text: "connecting..."
+        });
 
         try {
-            
             //create new batch with options
             var batch = await producerClient.createBatch(batchOptions);
+            node.log("create empty batch with following options:");
+            node.log(batchOptions);
 
             //try to add an event to the batch
             const isAdded = batch.tryAdd({ body: message });
+            node.log("try to add the following event to the batch:");
+            node.log(message);
 
             if( isAdded === false ) {
-                node.warn("Failed to add event to the batch. Possible information loss.");
+                var warnText = "Failed to add event to the batch. Possible information loss.";
+                node.warn(warnText);
+                node.log(warnText);
             }
+
             //send batch
             await producerClient.sendBatch(batch);
-            node.status(setStatus("sent", "message sent"));
+            node.log("sent batch to event hub.");
+            node.status({
+                fill: 'blue',
+                shape: 'dot',
+                text: "sent message"
+            });
 
         } 
         catch (err) {
-            console.log("Error when creating & sending a batch of events: ", err);
-            node.status(setStatus("error", "communication failed"));
+            node.log("Error when creating & sending a batch of events: ", err);
+            node.status({
+                fill: 'red',
+                shape: 'dot',
+                text: "communication failed"
+            });
         }
         //close connection
         await producerClient.close();
-        node.status(setStatus("close", "connection closed"));
+        node.log("Disconnect producer client.");
+        node.status({
+            fill: 'grey',
+            shape: 'dot',
+            text: "connection closed"
+        });
     };
-
-    /*
-    * sets the node status
-    */
-    function setStatus(status, message) {
-        var obj;
-
-        switch (status) {
-            case 'open':
-                obj = {
-                    fill: 'yellow',
-                    shape: 'dot',
-                    text: message
-                };
-                break;
-            case 'connected':
-                obj = {
-                    fill: 'green',
-                    shape: 'dot',
-                    text: message
-                };
-                break;
-            case 'close':
-                obj = {
-                    fill: 'grey',
-                    shape: 'dot',
-                    text: message
-                };
-                break;
-            case 'sent':
-                obj = {
-                    fill: 'blue',
-                    shape: 'dot',
-                    text: message
-                };
-                break;
-            case 'error':
-                obj = {
-                    fill: 'red',
-                    shape: 'dot',
-                    text: message
-                };
-                break;
-            default:
-                obj = {
-                    fill: 'grey',
-                    shape: 'dot',
-                    text: message
-                };
-        }
-        return obj;
-    }
 }
