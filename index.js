@@ -51,8 +51,18 @@ module.exports = function (RED) {
             node.log("create empty batch with following options:");
             node.log(batchOptions);
 
+            //transform string to JSON if necessary
+            if (typeof (msg.payload) != "string") {
+                node.log("Is JSON");
+                msgJSON = msg.payload;
+            } else {
+                node.log("Is String...converting");
+                //Converting string to JSON Object
+                msgJSON = JSON.parse(msg.payload);
+            }
+
             //try to add an event to the batch
-            const isAdded = batch.tryAdd({ body: message });
+            const isAdded = batch.tryAdd({ body: msgJSON });
             node.log("try to add the following event to the batch:");
             node.log(JSON.stringify(message));
 
