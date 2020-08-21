@@ -39,6 +39,7 @@ module.exports = function (RED) {
         try {
             const batchOptions = { /*e.g. batch size*/ };
             const producerClient = new EventHubProducerClient(connectionString, eventHubPath);
+            setStatus("open", "connecting...");
 
             //create new batch with options
             var batch = await producerClient.createBatch(batchOptions);
@@ -51,12 +52,15 @@ module.exports = function (RED) {
             }
             //send batch
             await producerClient.sendBatch(batch);
+            setStatus("sent", "message sent");
+
         } catch (err) {
             console.log("Error when creating & sending a batch of events: ", err);
             setStatus("error", "communication failed");
         }
         //close connection
         await producerClient.close();
+        setStatus("close", "connection closed");
     };
 
     /*
@@ -66,7 +70,7 @@ module.exports = function (RED) {
         var obj;
 
         switch (status) {
-            case 'connecting...':
+            case 'open':
                 obj = {
                     fill: 'yellow',
                     shape: 'dot',
@@ -80,14 +84,14 @@ module.exports = function (RED) {
                     text: message
                 };
                 break;
-            case 'disconnected':
+            case 'close':
                 obj = {
-                    fill: 'red',
+                    fill: 'grey',
                     shape: 'dot',
                     text: message
                 };
                 break;
-            case 'message sent':
+            case 'sent':
                 obj = {
                     fill: 'blue',
                     shape: 'dot',
