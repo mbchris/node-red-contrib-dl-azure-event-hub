@@ -36,10 +36,12 @@ module.exports = function (RED) {
     */
     async function sendMessage(node, connectionString, eventHubPath, message) { 
         
+        var producerClient;
+
         try {
             const batchOptions = { /*e.g. batch size*/ };
-            const producerClient = new EventHubProducerClient(connectionString, eventHubPath);
-            setStatus("open", "connecting...");
+            producerClient = new EventHubProducerClient(connectionString, eventHubPath);
+            node.status(setStatus("open", "connecting..."));
 
             //create new batch with options
             var batch = await producerClient.createBatch(batchOptions);
@@ -52,15 +54,16 @@ module.exports = function (RED) {
             }
             //send batch
             await producerClient.sendBatch(batch);
-            setStatus("sent", "message sent");
+            node.status(setStatus("sent", "message sent"));
 
-        } catch (err) {
+        } 
+        catch (err) {
             console.log("Error when creating & sending a batch of events: ", err);
-            setStatus("error", "communication failed");
+            node.status(setStatus("error", "communication failed"));
         }
         //close connection
         await producerClient.close();
-        setStatus("close", "connection closed");
+        node.status(setStatus("close", "connection closed"));
     };
 
     /*
