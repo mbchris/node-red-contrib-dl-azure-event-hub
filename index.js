@@ -35,14 +35,13 @@ module.exports = function (RED) {
     * sends the events in shape of batchs to the event hub
     */
     async function sendMessage(node, connectionString, eventHubPath, message) { 
-        
-        var producerClient;
+
+        const batchOptions = { /*e.g. batch size*/ };
+        const producerClient = new EventHubProducerClient(connectionString, eventHubPath);
+        node.status(setStatus("open", "connecting..."));
 
         try {
-            const batchOptions = { /*e.g. batch size*/ };
-            producerClient = new EventHubProducerClient(connectionString, eventHubPath);
-            node.status(setStatus("open", "connecting..."));
-
+            
             //create new batch with options
             var batch = await producerClient.createBatch(batchOptions);
 
