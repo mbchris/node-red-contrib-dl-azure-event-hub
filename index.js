@@ -54,7 +54,7 @@ module.exports = function (RED) {
             //try to add an event to the batch
             const isAdded = batch.tryAdd({ body: message });
             node.log("try to add the following event to the batch:");
-            node.log(message);
+            node.log(JSON.stringify(message));
 
             if( isAdded === false ) {
                 var warnText = "Failed to add event to the batch. Possible information loss.";
