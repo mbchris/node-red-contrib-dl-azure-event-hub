@@ -90,6 +90,7 @@ module.exports = function (RED) {
             eventHubPath: {
                 type: "text"
             }
-        }
+        },
+        debug : false
     });
 }
