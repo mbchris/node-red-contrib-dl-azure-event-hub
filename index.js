@@ -75,7 +75,7 @@ module.exports = function (RED) {
                     shape: 'dot',
                     text: "sent message"
                 });
-                if(DEBUG === true {
+                if(DEBUG === true) {
                     node.warn("sent the batch.");
                 }
 
