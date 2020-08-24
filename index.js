@@ -9,7 +9,7 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', async function (msg) {
-            var DEBUG = node.debug;
+            var DEBUG = config.debug;
             const batchOptions = { /*e.g. batch size*/ };
             const producerClient = new EventHubProducerClient(node.credentials.connectionString, node.credentials.eventHubPath);
             node.log("connecting the producer client...");
