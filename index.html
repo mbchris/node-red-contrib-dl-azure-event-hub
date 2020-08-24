@@ -4,7 +4,7 @@
         color: '#B8860B',
         defaults: {
             name: {value:"dlEventHubSend"},
-            debug: ['debug'],
+            debug: {value: false},
         },
         inputs:1,
         outputs:1,
@@ -17,17 +17,10 @@
             eventHubPath: { type: "text"}
         },
         oneditprepare() {
-            this.debug.forEach(debug => {
-                $("#node-input-debug").prop("checked", true);
-            });
+            this.debug = $("#node-input-debug").prop("checked");
         },
         oneditsave() {
-            this.debug = [];
-            ['debug'].forEach(debug => {
-                if ($("#node-input-debug").is(":checked")) {
-                    this.debug.push(debug);
-                }
-            });
+            this.debug = $("#node-input-debug").is(":checked");
         }
     });
 </script>
