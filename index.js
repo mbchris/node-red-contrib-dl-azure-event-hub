@@ -21,7 +21,7 @@ module.exports = function (RED) {
             if(DEBUG === true) {
                 node.warn("open the producerClient connection.");
                 node.warn("producerClient object:");
-                node.send(JSON.parse(producerClient));
+                node.send(producerClient);
             }
 
             try {
