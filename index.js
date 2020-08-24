@@ -20,7 +20,7 @@ module.exports = function (RED) {
                 shape: 'dot',
                 text: "connecting..."
             });
-            if(DEBUG) {
+            if(DEBUG === true) {
                 node.warn("open the producerClient connection.");
                 node.warn("producerClient object:");
                 node.send(producerClient);
@@ -32,10 +32,10 @@ module.exports = function (RED) {
                 var msgJSON;
                 node.log("create empty batch with following options:");
                 node.log(batchOptions);
-                if(DEBUG) {
+                if(DEBUG === true) {
                     node.warn("create empty batch.");
                     node.warn("batchOptions:");
-                    node.send(JSON.parse(batchOptions));
+                    node.send(batchOptions);
                 }
 
                 //transform string to JSON if necessary
@@ -52,7 +52,7 @@ module.exports = function (RED) {
                 const isAdded = batch.tryAdd({ body: msgJSON });
                 node.log("try to add the following event to the batch:");
                 node.log(JSON.stringify(msg.payload));
-                if(DEBUG) {
+                if(DEBUG === true) {
                     node.warn("try to add message to the batch.");
                     node.warn("message content:");
                     node.send(msg);
@@ -62,7 +62,7 @@ module.exports = function (RED) {
                     var warnText = "Failed to add event to the batch. Possible information loss.";
                     node.warn(warnText);
                     node.log(warnText);
-                    if(DEBUG) {
+                    if(DEBUG === true) {
                         node.warn("adding failed.");
                     }
                 }
@@ -75,7 +75,7 @@ module.exports = function (RED) {
                     shape: 'dot',
                     text: "sent message"
                 });
-                if(DEBUG) {
+                if(DEBUG === true {
                     node.warn("sent the batch.");
                 }
 
@@ -87,7 +87,7 @@ module.exports = function (RED) {
                     shape: 'dot',
                     text: "communication failed"
                 });
-                if(DEBUG) {
+                if(DEBUG === true) {
                     node.warn("got an unexpected error.");
                     node.warn("error object:");
                     node.send(err);
@@ -101,7 +101,7 @@ module.exports = function (RED) {
                 shape: 'dot',
                 text: "connection closed"
             });
-            if(DEBUG) {
+            if(DEBUG === true) {
                 node.warn("close the producerClient connection.");
             }
         });
