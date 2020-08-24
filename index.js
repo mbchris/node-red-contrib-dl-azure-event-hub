@@ -29,6 +29,7 @@ module.exports = function (RED) {
             try {
                 //create new batch with options
                 var batch = await producerClient.createBatch(batchOptions);
+                var msgJSON;
                 node.log("create empty batch with following options:");
                 node.log(batchOptions);
                 if(DEBUG) {
