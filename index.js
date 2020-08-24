@@ -35,7 +35,7 @@ module.exports = function (RED) {
                 if(DEBUG) {
                     node.warn("create empty batch.");
                     node.warn("batchOptions:");
-                    node.send(batchOptions);
+                    node.send(JSON.parse(batchOptions));
                 }
 
                 //transform string to JSON if necessary
@@ -55,7 +55,7 @@ module.exports = function (RED) {
                 if(DEBUG) {
                     node.warn("try to add message to the batch.");
                     node.warn("message content:");
-                    node.send(msg.payload);
+                    node.send(msg);
                 }
 
                 if( isAdded === false ) {
