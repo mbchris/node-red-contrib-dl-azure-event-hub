@@ -1,9 +1,7 @@
 module.exports = function (RED) {
     "use strict";
 
-    const {
-        EventHubProducerClient
-    } = require("@azure/event-hubs");
+    const { EventHubProducerClient } = require("@azure/event-hubs");
 
     function dlEventHubSend(config) {
         // Create the Node-RED node
@@ -11,9 +9,9 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', async function (msg) {
-            var DEBUG = this.debug;
+            var DEBUG = node.debug;
             const batchOptions = { /*e.g. batch size*/ };
-            const producerClient = new EventHubProducerClient(this.credentials.connectionString, this.credentials.eventHubPath);
+            const producerClient = new EventHubProducerClient(node.credentials.connectionString, node.credentials.eventHubPath);
             node.log("connecting the producer client...");
             node.status({
                 fill: 'yellow',
