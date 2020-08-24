@@ -15,7 +15,20 @@
             connectionString: {type:"text"},
             eventHubPath: { type: "text"}
         },
-        debug: {type:"boolean"}
+        debug: [],
+        oneditprepare() {
+            this.debug.forEach(debug => {
+                $("#node-input-debug").prop("checked", true);
+            });
+        },
+        oneditsave() {
+            this.debug = [];
+            ['debug'].forEach(debug => {
+                if ($("#node-input-debug").is(":checked")) {
+                    this.debug.push(debug);
+                }
+            });
+        }
     });
 </script>
 
