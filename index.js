@@ -122,6 +122,8 @@ module.exports = function (RED) {
                 type: "text"
             }
         },
-        debug : false
+        debug : {
+            type: "boolean"
+        }
     });
 }
