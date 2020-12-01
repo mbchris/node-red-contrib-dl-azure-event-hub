@@ -19,7 +19,7 @@ Address path of the eventHub to which the messages should be addressed.
 Switch on/off debug information on your Node-RED debug console.
 
 ## Screenshot
-![Alt text](/images/dlEventHubSend.JPG?raw=true "Example flow")
+![Alt text](/icons/dlEventHubSend.JPG?raw=true "Example flow")
 
 ## Installation
 ```
