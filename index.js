@@ -24,7 +24,13 @@ module.exports = function (RED) {
             var DEBUG = config.debug;
             const batchOptions = { /*e.g. batch size*/ };
             //const producerClient = new EventHubProducerClient(node.credentials.connectionString, node.credentials.eventHubPath);
-            const producerClient = new EventHubProducerClient(node.credentials.connectionString, node.credentials.eventHubPath);
+            const producerClient = new EventHubProducerClient(node.credentials.connectionString, node.credentials.eventHubPath, {
+               webSocketOptions: {
+                    webSocket: WebSocket,
+                    webSocketConstructorOptions: { agent: proxyAgent }
+                }
+            });
+            
             node.log("connecting the producer client...");
             node.status({
                 fill: 'yellow',
