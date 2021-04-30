@@ -1,7 +1,7 @@
 {
-  "name": "node-red-contrib-dl-azure-event-hub",
-  "version": "1.2.6",
-  "description": "Send messages to the azure event hub",
+  "name": "node-red-contrib-dl-azure-event-hub-proxy",
+  "version": "1.2.6fork",
+  "description": "Send messages to the azure event hub with proxy",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -20,15 +20,16 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/digital-lion/node-red-contrib-dl-azure-event-hub.git"
+    "url": "git+https://github.com/mbchris/node-red-contrib-dl-azure-event-hub.git"
   },
-  "author": "Digital Lion",
+  "author": "mbchris",
   "bugs": {
-    "url": "https://github.com/digital-lion/node-red-contrib-dl-azure-event-hub/issues"
+    "url": "https://github.com/mbchris/node-red-contrib-dl-azure-event-hub/issues"
   },
-  "homepage": "https://github.com/digital-lion/node-red-contrib-dl-azure-event-hub/blob/master/README.md",
+  "homepage": "https://github.com/mbchris/node-red-contrib-dl-azure-event-hub/blob/master/README.md",
   "license": "MIT",
   "dependencies": {
     "@azure/event-hubs": "^5.2.2"
   }
 }
+~
