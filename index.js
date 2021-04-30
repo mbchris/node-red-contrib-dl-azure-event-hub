@@ -8,17 +8,18 @@ module.exports = function (RED) {
     const url = require("url");
     const httpsProxyAgent = require("https-proxy-agent");
 
-    // Create an instance of the `HttpsProxyAgent` class with the proxy server information like
-    // proxy url, username and password
-    // Skip this section if you are not behind a proxy server
-    const urlParts = url.parse("http://" + node.credentials.proxyhost);
-    urlParts.auth = node.credentials.proxyuser + ":" + node.credentials.proxypass; // Skip this if proxy server does not need authentication.
-    const proxyAgent = new httpsProxyAgent(urlParts);
     
     function dlEventHubSend(config) {
         // Create the Node-RED node
         RED.nodes.createNode(this, config);
         var node = this;
+
+        // Create an instance of the `HttpsProxyAgent` class with the proxy server information like
+        // proxy url, username and password
+        // Skip this section if you are not behind a proxy server
+        const urlParts = url.parse("http://" + node.credentials.proxyhost);
+        urlParts.auth = node.credentials.proxyuser + ":" + node.credentials.proxypass; // Skip this if proxy server does not need authentication.
+        const proxyAgent = new httpsProxyAgent(urlParts);
 
         node.on('input', async function (msg) {
             var DEBUG = config.debug;
@@ -39,6 +40,7 @@ module.exports = function (RED) {
             });
             if(DEBUG === true) {
                 node.warn("open the producerClient connection.");
+		node.warn("params: " + node.credentials.connectionString + " - " +node.credentials.eventHubPath + " - " + node.credentials.proxyhost + " - " + node.credentials.proxyuser + " - " + node.credentials.proxypass);
                 node.warn("producerClient object:");
                 node.send(producerClient);
             }
