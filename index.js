@@ -2,7 +2,19 @@ module.exports = function (RED) {
     "use strict";
 
     const { EventHubProducerClient } = require("@azure/event-hubs");
+    
+    // add support for proxy and websocket connection
+    const WebSocket = require("ws");
+    const url = require("url");
+    const httpsProxyAgent = require("https-proxy-agent");
 
+    // Create an instance of the `HttpsProxyAgent` class with the proxy server information like
+    // proxy url, username and password
+    // Skip this section if you are not behind a proxy server
+    const urlParts = url.parse("http://localhost:3128");
+    urlParts.auth = "username:password"; // Skip this if proxy server does not need authentication.
+    const proxyAgent = new httpsProxyAgent(urlParts);
+    
     function dlEventHubSend(config) {
         // Create the Node-RED node
         RED.nodes.createNode(this, config);
@@ -11,6 +23,7 @@ module.exports = function (RED) {
         node.on('input', async function (msg) {
             var DEBUG = config.debug;
             const batchOptions = { /*e.g. batch size*/ };
+            //const producerClient = new EventHubProducerClient(node.credentials.connectionString, node.credentials.eventHubPath);
             const producerClient = new EventHubProducerClient(node.credentials.connectionString, node.credentials.eventHubPath);
             node.log("connecting the producer client...");
             node.status({
