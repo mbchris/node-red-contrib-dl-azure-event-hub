@@ -125,10 +125,10 @@ module.exports = function (RED) {
     }
 
     // Registration of the node into Node-RED
-    RED.nodes.registerType("dlEventHubSend", dlEventHubSend, {
+    RED.nodes.registerType("dlEventHubSendProxy", dlEventHubSend, {
         defaults: {
             name: {
-                value: "Send Message To Azure EventHub"
+                value: "Send Message To Azure EventHub using a proxy"
             }
         },
         credentials: {
