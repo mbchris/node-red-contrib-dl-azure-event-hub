@@ -11,8 +11,8 @@ module.exports = function (RED) {
     // Create an instance of the `HttpsProxyAgent` class with the proxy server information like
     // proxy url, username and password
     // Skip this section if you are not behind a proxy server
-    const urlParts = url.parse("http://localhost:3128");
-    urlParts.auth = "username:password"; // Skip this if proxy server does not need authentication.
+    const urlParts = url.parse("http://" + node.credentials.proxyhost);
+    urlParts.auth = node.credentials.proxyuser + ":" + node.credentials.proxypass; // Skip this if proxy server does not need authentication.
     const proxyAgent = new httpsProxyAgent(urlParts);
     
     function dlEventHubSend(config) {
@@ -137,6 +137,15 @@ module.exports = function (RED) {
             },
             eventHubPath: {
                 type: "text"
+            },
+	    proxyhost: {
+                type: "text"
+            },
+            proxyuser: {
+                type: "text"
+            },
+            proxypass: {
+                type: "password"
             }
         }
     });

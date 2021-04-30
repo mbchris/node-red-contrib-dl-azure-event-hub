@@ -1,20 +1,23 @@
 <script type="text/javascript">
-    RED.nodes.registerType('dlEventHubSend',{
+    RED.nodes.registerType('dlEventHubSendProxy',{
         category: 'cloud',
         color: '#B8860B',
         defaults: {
-            name: {value:"dlEventHubSend"},
+            name: {value:"dlEventHubSendProxy"},
             debug: {value: false},
         },
         inputs:1,
         outputs:1,
         icon: "icon.png",
         label: function() {
-            return this.name||"dlEventHubSend";            
+            return this.name||"dlEventHubSendProxy";            
         },
         credentials: {
             connectionString: {type:"text"},
-            eventHubPath: { type: "text"}
+            eventHubPath: { type: "text"},
+            proxyhost: { type: "text" },
+            proxyuser: { type: "text" },
+            proxypass: { type: "text" }
         },
         oneditprepare() {
             this.debug = $("#node-input-debug").prop("checked");
@@ -25,7 +28,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="dlEventHubSend">
+<script type="text/x-red" data-template-name="dlEventHubSendProxy">
     <div class="form-row">
         <label for="node-input-name"><i class="icon-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name"> <br/>
@@ -38,6 +41,20 @@
         <label for="node-input-eventHubPath"><i class="icon-tag"></i> Event Hub path</label>
         <input type="text" id="node-input-eventHubPath" placeholder="Event Hub path"> <br/>
     </div>
+    <div class="form-row">
+        <label for="node-input-proxyhost"><i class="icon-tag"></i> proxy hostname:port (e.g. localhost:3128)</label>
+        <input type="text" id="node-input-proxyhost" placeholder="Proxy host"> <br/>
+    </div>
+    <div class="form-row">
+        <label for="node-input-proxyuser"><i class="icon-tag"></i> proxy username)</label>
+        <input type="text" id="node-input-proxyuser" placeholder="Proxy user"> <br/>
+    </div>
+    <div class="form-row">
+        <label for="node-input-proxypass"><i class="icon-tag"></i> proxy password</label>
+        <input type="password" id="node-input-proxypass" placeholder="Proxy password"> <br/>
+    </div>
+    
+    
     <div id="debug" style="width: 70%">
         <label>&nbsp;</label>
         <label for="node-input-debug"><input type="checkbox" id="node-input-debug" style="display: inline-block; width: auto; vertical-align: top;"> debug</label>
